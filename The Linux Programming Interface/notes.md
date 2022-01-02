@@ -6,6 +6,7 @@
 *Operating System* refers to the central software that managed and allocates the cokmputer resources (CPU, RAM, devices etc)
 _Kernel_ is often used as a synonym.
 The Linux Kernel typically resides at the pathname _/boot/vmlinuz_
+
 **Tasks Performed by Kernel:**
 - _Process Scheduling_ 
 - _Memory Management_ Linux employs virtual memory management which has the following advantages:
