@@ -33,3 +33,41 @@ In Unix systems, the shell is a _user process_.  There are many types of Unix sh
 - _C Shell (csh)_ resembles C language in amy flow control constructs.  Includes some useful features not in Bourne shell - command history, command-line editing, job control, aliases.
 - _Korn Shell (ksh)_ successor to bash, is backward compatible with bash, but incorporates interactive features like csh.
 - _Bourne Again Shell (bash)_ GNU's implementation of Bourne Shell, adds interactive features like in csh and ksh.  Most widely used on Linux.
+
+Shells not only interactive, but also interpret _shell scripts_ which are text files containing shell commands - as such, each shell has facilities resembling programming languages: variables, loop and conditional statements, I/O commands, and functions.
+
+### 2.3 Users and Groups
+Each _user_ on the system is uniquely identified.  Users may beling to _Groups_.
+**Users**
+Every user has a unique _login Name_ (username) and a corresponding numeric _user id_ UID, defined by a line in the system _password file_ **/etc/passwd** including the following information:
+- _Group ID_ the numeric group id of the first of the groups the user belongs to.
+- _Home Directory:_ the initial directory into which the user is placed after logging in.
+- _Login Shell_ the name of the shell for that user.
+
+The password record may also include the users password, in encrypted form, but often stored in a separate _shadow password file_ readable only by priveleged users.
+**Groups**
+Enables users to be placed in _groups_ to receive privileges enabled by that group.  Each group identified by a single line in the _system group file_ **/etc/group** which contains:
+- _Group Name_
+- _Group ID_
+- _User List_ comma separated list of login names of members of that group.
+
+**Superuser**
+The _SuperUser_ (ID = 0, username = root) has special privileges on the system.  _root_ bypasses all permission checks on the system, can access any file, or send signals to any process in the system.  Used to perform administrative tasks on the system.
+```
+/
+  bin/
+  bin/bash
+  boot/
+  boot/**vmlinuz**
+  etc/
+  etc/**group**
+  etc/passwd
+  home/
+  home/mtk/
+  home/mtk/.bashrc
+  usr/
+  usr/include/
+  usr/include/stdio.h
+  usr/include/sys/
+  usr/include/sys/types.h
+```
