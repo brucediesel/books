@@ -20,3 +20,6 @@ The Linux Kernel typically resides at the pathname _/boot/vmlinuz_
 
 **Kernel Mode and User Mode**
 Modern processor architectures typically allow the cpu to operate in at least two different modes, _user mode_ and _kernel mode_. Correspondingly, areas of virtual memory can be marked as being part of **user space** or **kernel space**
+When running in _user mode_ the CPU can only access virtual memory marked as being in user space.  In kernel mode, the CPU can access memory in both user and kernel memory space.
+
+**Process versus kernel views of the system**
