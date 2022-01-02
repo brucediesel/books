@@ -23,3 +23,13 @@ Modern processor architectures typically allow the cpu to operate in at least tw
 When running in _user mode_ the CPU can only access virtual memory marked as being in user space.  In kernel mode, the CPU can access memory in both user and kernel memory space.
 
 **Process versus kernel views of the system**
+A _process_ operates in isolation, it does not know exactly where it is in memory, where files are located etc.  All functions it requires are mediated by the kernel.  A _kernel_ on the other hand, facilitates the running of all processes on the system.  It schedules the processes, and maintains data structures containing information about all running processes are created, change state, and terminate.
+
+### 2.2 The Shell
+_shell_ is a special purpose program designed to read commands typed by a user and execute appropriate programs in response to those commands.
+_login shell_ is used to denote the process that is created to run a shell when the use first logs in.
+In Unix systems, the shell is a _user process_.  There are many types of Unix shells:
+- _Bourne shell (sh)_ is the oldest and widely used.  Included in all unix implementations.
+- _C Shell (csh)_ resembles C language in amy flow control constructs.  Includes some useful features not in Bourne shell - command history, command-line editing, job control, aliases.
+- _Korn Shell (ksh)_ successor to bash, is backward compatible with bash, but incorporates interactive features like csh.
+- _Bourne Again Shell (bash)_ GNU's implementation of Bourne Shell, adds interactive features like in csh and ksh.  Most widely used on Linux.
