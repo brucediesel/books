@@ -200,3 +200,10 @@ Environment variables are create with the **_export_** command in most shells e.
 
 `$ export MYVAR='Hello World'`
 
+C programs can access teh environment using the external variable _(char \**environ)_ with libray functions that enable a process to retrieve and update values in it's environment.
+
+**Resource Limits**
+
+Each process consumes resources, such as open files, memory, CPU etc.  Using the _setrlimit()_ system call, a process can establish upper limits on it's consumption.  Each such _resource limit_ has two associated values: a _soft_ limit, which limits the amount of the resource that the process may consume and a _hard_ limit whic is the ceiling on the value to which the soft limit can be adjusted.
+When a process is created with _fork()_, it inherits copies of its parent's resource limit settings.
+The resource limits of a ahell can be adjusted using the **_ulimit_** command which are passed on to the child processes the shell creates.
