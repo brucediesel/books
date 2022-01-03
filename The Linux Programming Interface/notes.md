@@ -57,22 +57,13 @@ The _SuperUser_ (ID = 0, username = root) has special privileges on the system. 
 ## 2.4 Single Directory Hierarchy, Directories, Links, and Files
 The kernel maintains a single hierarchical directory structure to organize all files in the system.  At the base of this hierarchy is the _root directory_ named **/** (slash).  All files and directories are children of the root directory. (Windows has each disk device with it's own directory hierarchy.)
 ![image](https://user-images.githubusercontent.com/7336290/147913088-5e78bb6e-d925-4b71-9999-3d01e7e07b22.png)
+**File Types**
+Within the file system, each file is marked with a _type_.  One file type denotes ordinary data files, usually called _regular_ or _plain_ files.  Other file types include _devices, pipes, sockets, directories, and symbolic links._  The term _file_ is used to denote a file of any type, not just a regular file.
+**Directories and Links**
+A _directory_ is a special file whose contents are a table of filenames coupled with references to the corresponding files.  This _filename-plus-reference_ is called a _**link**_.  Files can have multiple links, and thus multiple names, in the same or different directories.
+![image](https://user-images.githubusercontent.com/7336290/147918319-18cb56d4-f0e9-428c-931c-b9fe39e95def.png)
+Every directory contains at least two entries - **.** (dot - points to itself) and **..** (dot-dot - points to it's parent).
+**Symbolic Links**
+A _symbolic link_ provides an alternate name for a file (or directory).  It is just a specially marked file containing the name of another file (called the _target_ file).
+If a symbolic link refers to a file that does not exist, it is a _dangling link_.
 
-```
-/
-  bin/
-  bin/bash
-  boot/
-  boot/**vmlinuz**
-  etc/
-  etc/**group**
-  etc/passwd
-  home/
-  home/mtk/
-  home/mtk/.bashrc
-  usr/
-  usr/include/
-  usr/include/stdio.h
-  usr/include/sys/
-  usr/include/sys/types.h
-```
