@@ -53,6 +53,8 @@ Enables users to be placed in _groups_ to receive privileges enabled by that gro
 
 **Superuser**
 The _SuperUser_ (ID = 0, username = root) has special privileges on the system.  _root_ bypasses all permission checks on the system, can access any file, or send signals to any process in the system.  Used to perform administrative tasks on the system.
+
+
 ```
 /
   bin/
