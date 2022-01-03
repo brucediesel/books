@@ -60,10 +60,43 @@ The kernel maintains a single hierarchical directory structure to organize all f
 **File Types**
 Within the file system, each file is marked with a _type_.  One file type denotes ordinary data files, usually called _regular_ or _plain_ files.  Other file types include _devices, pipes, sockets, directories, and symbolic links._  The term _file_ is used to denote a file of any type, not just a regular file.
 **Directories and Links**
-A _directory_ is a special file whose contents are a table of filenames coupled with references to the corresponding files.  This _filename-plus-reference_ is called a _**link**_.  Files can have multiple links, and thus multiple names, in the same or different directories.
+A _directory_ is a special file whose contents are a table of filenames coupled with references to the corresponding files.  This _filename-plus-reference_ is called a _**link**_.  Files can have multiple links, and thus multiple names, in the same or different directories.  Directories can contain links to both files and other directories.
+
 ![image](https://user-images.githubusercontent.com/7336290/147918319-18cb56d4-f0e9-428c-931c-b9fe39e95def.png)
+
 Every directory contains at least two entries - **.** (dot - points to itself) and **..** (dot-dot - points to it's parent).
 **Symbolic Links**
 A _symbolic link_ provides an alternate name for a file (or directory).  It is just a specially marked file containing the name of another file (called the _target_ file).
 If a symbolic link refers to a file that does not exist, it is a _dangling link_.
+Often _hard link_ and _soft link_ are used as alternate terms for normal and symbolic links.
+
+**Filenames**
+Typically filenames can be up to 255 charactgers long.  They may contain any characters except slashes (/) and null characters (\0).  It is adviseable to only use characters from the _protable filename character set_.  [-.\_a-zA-Z0-9] to avoid filename characters that have special meanings in the shell, regular expressions etc.  If special characters have been used, they have to be _escaped_ (\).  Filenames should also not start with a -, to avoid being interpreted as an option in a shell command.
+
+**Pathnames**
+A _pathname_ is a string consisting of an optional initial slash (/) followed by a series of filenames separated by slashes.  All but the last of these component filenames identifies a directory (or a symbolic link that resolves to a directory).  The last component of a pathname may identify any type of file, including a directory.  The string .. can also be used anywhere in a pathname to refer to the parent of the location so far specified in the pathname.
+A pathname desrcibes the location of a file within the single directory hierarchy and is either absolute or relative:
+- An _absolute_ pathname begins with a slash (/) and specifies the location of a file with respect to the root directory.
+- A _relative_ pathname specifies the cloation of a file relative to a process' current working directory and is distinguished from an absolute pathname by the absence of the initial slash.
+
+**Current Working Directory**
+Each process has a _current working directory_.  This is the process' current location within the single directory hierarchy.  A process inherits it's current working directory from it's parent process.  A login shell has its initial current working directory set to the location named in the home directory field of the user's password file entry.
+
+**File Ownership and Permissions**
+Each file has an associated user ID and group ID that define the owner of the file and the group to which it belongs.  For the purposes of accsssing a file the system divides users into three categories:
+1. The _owner_ of the file.
+2. Users who are members of teh group matching he file's _group_ ID
+3. The rest of the world _other_.
+Permission bits are set for each of these categories - _read_ permissions, _write_ permissions, _execute_ permissions.
+Permissions may also be set on directories but have slightly different meaning:
+- _read_ allows the contents of directory to be listed,
+- _write_ allows contents of directory to be changed (filenames can be added, removed, changed)
+- _execute_ (sometimes called _search_) allows access to files within directory (subject to file permissions)
+
+## 2.5 File I/O Model
+Unix implements a concept of _universality of I/O_ which means that the same system calls (_open(), read(), write(), close() etc_) are used to perform I/O on all types of files, includiong devices.  Thus, programs using these calls will work with any type of file.
+The kernel exxentially provides one file type: a sequential stream of bytes, which, in the case of disk files, disks, and tape devices, can be randomly accessed using the _lseek()_ system call.
+Many application and libraries interpret the _newline_ character as terminating one line of text and commencin another.  UNIX systems have no _end-of-file_ character.  End of file is interpreted when _read()_ returns no data.
+**File Descriptors**
+
 
