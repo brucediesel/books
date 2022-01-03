@@ -97,6 +97,24 @@ Permissions may also be set on directories but have slightly different meaning:
 Unix implements a concept of _universality of I/O_ which means that the same system calls (_open(), read(), write(), close() etc_) are used to perform I/O on all types of files, includiong devices.  Thus, programs using these calls will work with any type of file.
 The kernel exxentially provides one file type: a sequential stream of bytes, which, in the case of disk files, disks, and tape devices, can be randomly accessed using the _lseek()_ system call.
 Many application and libraries interpret the _newline_ character as terminating one line of text and commencin another.  UNIX systems have no _end-of-file_ character.  End of file is interpreted when _read()_ returns no data.
+
 **File Descriptors**
+The I/O system calls refer to open files using a _file descriptor_ which is usually an integer.  The file descriptor is obtained using a call to _open()_ which takes a pathname, and returns a file descriptor if file is successfully opened.
+Normally, a process inherits three open file descriptors when it is started by the shell.  **descriptor 0** is _standard input_, the file from which the process takes it's input; **descriptor 1** is _standard output_, the file to which the process writes it's output; and **descriptor 3** is _standard error_, the file to which the process writes error messages.  In an interactive shell, these three descriptors are normally connected to the terminal.  In the _stdio_ library, these descriptors correspond to file streams _stdin_, _stdout_, and _stderr_.
+
+**The _stdio_ Library**
+To perform file I/O, C programs typically employ I/O funtions contained in the standard C library (_fopen()_, _fclose()_, _scanf()_ etc) which are layered on top of I/O system calls (_open()_, _close()_, _read()_ etc)
+
+## 2.6 Programs
+_Programs_ normally exist in two forms, _source code_ which is human readable text consisting of a series of statements written in a programming language, or _binary machine language_ which is source code compiled into instructions the computer can understand.  A _script_ is a text file containing commands that are directly processed by a shell or command interpreter (e.g. bash script, python program etc)
+
+**Filters**
+A _filter_ is the name often applied toa program that reads its input from _stdin_, performs some transformation of that input, and writes the transformed data to _stdout_.
+
+**Command line arguments**
+Programs can access the _command line arguments_, the words that are supplied to the command line when the program is run.
+```C
+int main(int argc, char* argv[])
+```
 
 
