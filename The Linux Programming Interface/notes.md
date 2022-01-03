@@ -117,4 +117,20 @@ Programs can access the _command line arguments_, the words that are supplied to
 int main(int argc, char* argv[])
 ```
 
+## 2.7 Processes
+A _process_ is an instance of an executing program.  From a kernel point of view, processes are entities among which the kernel must share the various resources of the computer.
+**Process Memory Layout**
+A process is logically divided into the following parts, known as _segments_:
+- _text_ which are the intstructions of the program
+- _data_ which are the static variables used by the program
+- _heap_ an area where programs can dynamically allocate memory
+- _stack_ an area of memory that grows and shrinks as functions are called and return - used to allocate storage for local variables and function call linkage information
+![image](https://user-images.githubusercontent.com/7336290/147929160-4aec9ede-226c-4405-b9b0-b7d44d037f6e.png)
+**Process Creation and program execution**
+A process can create a new process using the _fork()_ system call.  The process that calls fork is the _parent_ and the new process is the _child_ process.  The kernel creates the child process by making a duplicate of teh parent process, which inherits copies of the parent's data, stack, and heap segments.  Which is may then modify independently of the parent's copies.  The child process frequently uses the _execve()_ system call to load and execute an entirely new program.  An execve() call destroys existing text, data, stack and heap segments, replacing them with new segments based on the code of the new program.
+**Process ID and Parent Process ID**
+Each process has a unique integer _process idenitifer (PID)_.  Each process also has a _parent process id (PPID)_ which identifies the process that requested the kernel to create it.
+**Process Termination and termination status**
+A process can terminate in one of two ways: by requesting it's own termination using the _\_exit()_ system call (or related _exit()_ library function) or by being killed by the delivery of a signal.  In either case the process yeilds a _termination status_ which is a small non-negative integer value that is available for inspection by the parent process using the _wait()_ system call.  If _exit()_ is used, the process explicitly sets it's own termination code.  If terminated by a signal, the termination status is set according to the type of signal that caused the termination.  By convention, the termination status of 0 indicates that the process succeeded, and a non-zero status indicates that an error occurred.  Most shells make the termination status available via a shell variable named **_$?_**.
+
 
