@@ -166,4 +166,16 @@ Each process has a unique integer _process idenitifer (PID)_.  Each process also
 
 A process can terminate in one of two ways: by requesting it's own termination using the _\_exit()_ system call (or related _exit()_ library function) or by being killed by the delivery of a signal.  In either case the process yeilds a _termination status_ which is a small non-negative integer value that is available for inspection by the parent process using the _wait()_ system call.  If _exit()_ is used, the process explicitly sets it's own termination code.  If terminated by a signal, the termination status is set according to the type of signal that caused the termination.  By convention, the termination status of 0 indicates that the process succeeded, and a non-zero status indicates that an error occurred.  Most shells make the termination status available via a shell variable named **_$?_**.
 
+**Process user and group identifiers (credentials)**
 
+Each process has a number of associated user IDs (UIDs) and group IDs (GIDs).  These include:
+- _real user ID_ and _real group ID_ identifying the user and group to which the process belongs.  New processes inherit these IDs from their parents.
+- _effective user id_ and _effective group id_ used to determine the permissions that the process has when accessing protected resources such as files and interprocess communication objects.  Often have same values as corresponding real IDs.  Effective IDs enable processes to assume privileges from another user or group.
+- _Supplementary grou IDs_ identify additional groups to which the process belongs.  Login shells get these form the /etc/group file.
+
+**Privileged processes**
+A _privileged_ process is one whose _effective_) user ID is 0 (superuser).  This process bypasses the permission restrictions normally applied by the kernel.
+A process may be privileged because it was created by another privileged process e.g. login shell started by _root_, or by _set user ID_ mechanism.
+
+**Capabilities**
+Linux divides privileges traditionally accorded to the superuser into a set of distinct units called _capabilities_.  Each privileged operation is associated with a particular capability, and a process can only perform an operation if it has the corresponding capability.  Capabilities names begin with the prefic __CAP\___.
