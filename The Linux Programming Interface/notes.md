@@ -151,7 +151,7 @@ A process is logically divided into the following parts, known as _segments_:
 - _data_ which are the static variables used by the program
 - _heap_ an area where programs can dynamically allocate memory
 - _stack_ an area of memory that grows and shrinks as functions are called and return - used to allocate storage for local variables and function call linkage information
-- 
+ 
 ![image](https://user-images.githubusercontent.com/7336290/147929160-4aec9ede-226c-4405-b9b0-b7d44d037f6e.png)
 
 **Process Creation and program execution**
@@ -174,23 +174,29 @@ Each process has a number of associated user IDs (UIDs) and group IDs (GIDs).  T
 - _Supplementary grou IDs_ identify additional groups to which the process belongs.  Login shells get these form the /etc/group file.
 
 **Privileged processes**
+
 A _privileged_ process is one whose _effective_) user ID is 0 (superuser).  This process bypasses the permission restrictions normally applied by the kernel.
 A process may be privileged because it was created by another privileged process e.g. login shell started by _root_, or by _set user ID_ mechanism.
 
 **Capabilities**
+
 Linux divides privileges traditionally accorded to the superuser into a set of distinct units called _capabilities_.  Each privileged operation is associated with a particular capability, and a process can only perform an operation if it has the corresponding capability.  Capabilities names begin with the prefix __CAP\___. e.g. __CAP\_KILL__
 
 **The _init_ Process**
+
 When booting the system, the kernel creates a special process call _init_, the "parent of all processes" which is derived from the program file `/sbin/init`.  All processes on the system are created (using _fork()_) either by _init_ or by one of it's descendents.  The _init_ process always has the process ID 1 and runs with superuser privileges.  This process can't be killed, even by superuser and terminates with the system is shut down.
 
 **Deamon Processes**
+
 A _deamon_ is a special-purpose process that is created and handled by the system in the same way as other processes, but which is distinuished by the following:
 - it is long lived, often starting at system boot, and remains until system shutdown
 - runs in the background, and has no controlling terminal from which is can read input and write output.
 e.g. _syslogd_
 
 **Environment List**
+
 Each process has an _environment list_, whic is set of _environment variables_ that are maintained within the user-space memory of the process.  Each element is a name-value pair which are inherited from parent when process is created.  This enables a parent to communicate to child process.  When a program replaces the program that it is running using _exec()_, the new program either inherits the environment used by the old program, or receives a new environment specified as part of the _exec()_ call.
 Environment variables are create with the **_export_** command in most shells e.g.
+
 `$ export MYVAR='Hello World'`
 
