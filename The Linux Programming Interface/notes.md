@@ -54,6 +54,9 @@ Enables users to be placed in _groups_ to receive privileges enabled by that gro
 **Superuser**
 The _SuperUser_ (ID = 0, username = root) has special privileges on the system.  _root_ bypasses all permission checks on the system, can access any file, or send signals to any process in the system.  Used to perform administrative tasks on the system.
 
+## 2.4 Single Directory Hierarchy, Directories, Links, and Files
+The kernel maintains a single hierarchical directory structure to organize all files in the system.  At the base of this hierarchy is the _root directory_ named **/** (slash).  All files and directories are children of the root directory. (Windows has each disk device with it's own directory hierarchy.)
+![image](https://user-images.githubusercontent.com/7336290/147913088-5e78bb6e-d925-4b71-9999-3d01e7e07b22.png)
 
 ```
 /
