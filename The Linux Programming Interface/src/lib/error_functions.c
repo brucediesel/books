@@ -25,3 +25,6 @@ terminate(Boolean useExit3)
     else
         _exit(EXIT_FAILURE);
 }
+
+static void
+outputError (Boolean useErr)
